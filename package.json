@@ -2,7 +2,7 @@
   "name": "grunt-contrib-cjsc",
   "description": "A grunt task for running CommonJS module compiler",
   "version": "0.0.1",
-  "homepage": "https://github.com/dsheiko/grunt-cjsc",
+  "homepage": "https://github.com/dsheiko/grunt-contrib-cjsc",
   "author": {
     "name": "Dmitry Sheiko",
     "email": "web.sbelarus@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dsheiko/grunt-cjsc.git"
+    "url": "git://github.com/dsheiko/grunt-contrib-cjsc.git"
   },
   "bugs": {
-    "url": "https://github.com/dsheiko/grunt-cjsc/issues"
+    "url": "https://github.com/dsheiko/grunt-contrib-cjsc/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/dsheiko/grunt-cjsc/blob/master/LICENSE-MIT"
+      "url": "https://github.com/dsheiko/grunt-contrib-cjsc/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
