@@ -1,4 +1,6 @@
 # grunt-cjsc
+[![Build Status](https://travis-ci.org/dsheiko/grunt-contrib-cjsc.png)](https://travis-ci.org/dsheiko/grunt-contrib-cjsc)
+[![NPM version](https://badge.fury.io/js/grunt-contrib-cjsc.png)](http://badge.fury.io/js/grunt-contrib-cjsc)
 
 > A grunt task for running CommonJS modules compiler (https://github.com/dsheiko/cjsc)
 
