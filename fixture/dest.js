@@ -19,7 +19,7 @@ var require = (function(){
 			*/
 			imports = [],
 			/**
-			 * Store the code that constract a module (and assigns to exports)
+			 * Store the code that constructs a module (and assigns to exports)
 			 * @type {*[]}
 			 */
 			factories = [],
@@ -46,11 +46,10 @@ var require = (function(){
 					exports: {},
 					loaded: false
 				};
-
-				// Called first time, so let's run code constructing (exporting) the module
 				if ( typeof factories[ filename ] === "undefined" ) {
 					throw new Error( "The factory of " + filename + " module not found" );
 				}
+				// Called first time, so let's run code constructing (exporting) the module
 				imports[ filename ] = factories[ filename ]( require, module.exports, module );
 				imports[ filename ].loaded = true;
 				if ( imports[ filename ].parent.children ) {
@@ -74,7 +73,6 @@ console.log( "main.js running..." );
 console.log( "Imported name in main.js is `%s`", require( "/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep1.js" ).name );
 console.log( "Getting imported object from the cache:" );
 console.log( " imported name in main.js is still `%s`", require( "/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep1.js" ).name );
-	module.exports = JSON.stringify( exports ) === "{}" ? module.exports : exports;
 	return module;
 });
 
@@ -82,14 +80,14 @@ require.def( "/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixt
 console.log( "dep1.js running..." );
 console.log( "Imported name in dep1.js is `%s`", require( "/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep2.js" ).name );
 exports.name = "dep1";
-	module.exports = JSON.stringify( exports ) === "{}" ? module.exports : exports;
+	module.exports = exports;
 	return module;
 });
 
 require.def( "/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep2.js", function( require, exports, module ){
 console.log( "dep2.js running..." );
 exports.name = "dep2";
-	module.exports = JSON.stringify( exports ) === "{}" ? module.exports : exports;
+	module.exports = exports;
 	return module;
 });
 

@@ -22,6 +22,9 @@ module.exports = function( grunt ) {
     // Configuration to be run (and then tested).
     cjsc: {
       development: {
+				options: {
+					minify: false
+				},
         files: {
           "./fixture/dest.js" : "./fixture/main.js"
         }
