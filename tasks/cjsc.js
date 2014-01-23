@@ -13,9 +13,9 @@ var exec = require( "child_process" ).exec;
 
 module.exports = function( grunt ) {
 
-    var argv = [ "node", "cjsc" ],
-				compileJsic = function( srcFile, destFile ) {
+    var compileJsic = function( srcFile, destFile ) {
 					var cjsc = require( "cjsc" ),
+							argv = [ "node", "cjsc" ],
 							cmd = 'node cjsc ' + srcFile + ' ' + destFile;
 
 					argv.push( srcFile );
