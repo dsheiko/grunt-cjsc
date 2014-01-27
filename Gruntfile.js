@@ -19,11 +19,14 @@ module.exports = function( grunt ) {
       },
       all: ["tasks/**/*.js"]
     },
+		pkg: grunt.file.readJSON( "package.json" ),
     // Configuration to be run (and then tested).
     cjsc: {
       development: {
 				options: {
-					minify: false
+					minify: false,
+					banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - " +
+						"<%= grunt.template.today(\"yyyy-mm-dd\") %> */"
 				},
         files: {
           "./fixture/dest.js" : "./fixture/main.js"

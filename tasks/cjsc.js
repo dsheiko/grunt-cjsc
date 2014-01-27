@@ -23,6 +23,9 @@ module.exports = function( grunt ) {
 					if ( config.minify ) {
 						argv.push( "-M" );
 					}
+					if ( config.banner ) {
+						argv.push( "--banner=" + config.banner );
+					}
 					grunt.log.writeln('File ' + destFile.cyan + ' created.');
 					grunt.verbose.writeln( 'Exec: ' + cmd );
 

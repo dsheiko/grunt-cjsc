@@ -39,6 +39,7 @@ grunt.initConfig({
 
 ### Usage Examples
 
+#### Compile src1.js to dest1.js
 ```js
 grunt.initConfig({
   cjsc: {
@@ -50,6 +51,27 @@ grunt.initConfig({
   }
 });
 ```
+
+#### Compile with compression and prepend destination code with a banner
+```js
+grunt.initConfig({
+	pkg: grunt.file.readJSON( "package.json" ),
+  cjsc: {
+		options: {
+			minify: true,
+			banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - " +
+				"<%= grunt.template.today(\"yyyy-mm-dd\") %> */"
+		},
+    development: {
+			files: {
+				"./fixture/dest1.js" : "./fixture/src1.js"
+			}
+		}
+  }
+});
+```
+
+### Usage Examples
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
