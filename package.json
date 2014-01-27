@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-cjsc",
   "description": "A grunt task for running CommonJS module compiler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/dsheiko/grunt-contrib-cjsc",
   "author": {
     "name": "Dmitry Sheiko",
