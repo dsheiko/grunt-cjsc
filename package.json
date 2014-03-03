@@ -29,8 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cjsc": "*",
-    "grunt-lib-contrib": "~0.6.1"
+    "cjsc": "*"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",
