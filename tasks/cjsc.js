@@ -45,7 +45,7 @@ module.exports = function( grunt ) {
 
 			this.files.forEach(function( f ) {
 					var destFile = f.dest,
-							srcFile = f.src.shift();
+							srcFile = Array.isArray( f ) ? f.src.shift() : f.orig.src.shift();
 
 					if ( !grunt.file.exists( srcFile ) ) {
 						grunt.log.warn( 'Source file "' + srcFile + '" not found.' );
