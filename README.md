@@ -52,6 +52,22 @@ grunt.initConfig({
 });
 ```
 
+#### Compile src1.js to dest1.js keeping debug info
+```js
+grunt.initConfig({
+  cjsc: {
+		options: {
+			debug: true
+		},
+    development: {
+        files: {
+          "./fixture/dest1.js" : "./fixture/src1.js"
+        }
+      }
+  }
+});
+```
+
 #### Compile with compression and prepend destination code with a banner
 ```js
 grunt.initConfig({

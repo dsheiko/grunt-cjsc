@@ -1,1 +1,94 @@
-/*! grunt-contrib-cjsc - v0.0.3 - 2014-01-27 */var require=function(){var e=[],o=[],s={},r=function(r){if("undefined"!=typeof e[r])return e[r].exports;if(s={id:r,filename:r,parent:s,children:[],exports:{},loaded:!1},"undefined"==typeof o[r])throw new Error("The factory of "+r+" module not found");return e[r]=o[r](require,s.exports,s),e[r].loaded=!0,e[r].parent.children&&e[r].parent.children.push(e[r]),e[r].exports};return r.def=function(e,s){o[e]=s},r}();require.def("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/main.js",function(e,o,s){return console.log("main.js running..."),console.log("Imported name in main.js is `%s`",e("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep1.js").name),console.log("Getting imported object from the cache:"),console.log(" imported name in main.js is still `%s`",e("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep1.js").name),s}),require.def("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep1.js",function(e,o,s){return console.log("dep1.js running..."),console.log("Imported name in dep1.js is `%s`",e("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep2.js").name),o.name="dep1",s.exports=o,s}),require.def("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/lib/dep2.js",function(e,o,s){return console.log("dep2.js running..."),o.name="dep2",s.exports=o,s}),require("/repositories/home/sheiko/vhosts/os.htdocs/grunt-contrib-cjsc/fixture/main.js");
+/*! grunt-contrib-cjsc - v0.0.5 - 2014-03-11 *//* jshint unused: false */
+/**
+ * @typedef module
+ * @type {object}
+ * @property {string} id - the identifier for the module.
+ * @property {string} filename - the fully resolved filename to the module.
+ * @property {module} parent - the module that required this one.
+ * @property {module[]} children - the module objects required by this one.
+ * @property {boolean} loaded - whether or not the module is done loading, or is in the process of loading
+ */
+/**
+	*
+	* Define scope for `require`
+	*/
+var _require = (function(){
+	var /**
+			* Store modules (types assigned to module.exports)
+			* @type {module[]}
+			*/
+			imports = [],
+			/**
+			 * Store the code that constructs a module (and assigns to exports)
+			 * @type {*[]}
+			 */
+			factories = [],
+			/**
+			 * @type {module}
+			 */
+			module = {},
+			/**
+			 * Implement CommonJS `require`
+			 * http://wiki.commonjs.org/wiki/Modules/1.1.1
+			 * @param {string} filename
+			 * @returns {*}
+			 */
+			__require = function( filename ) {
+
+				if ( typeof imports[ filename ] !== "undefined" ) {
+					return imports[ filename ].exports;
+				}
+				module = {
+					id: filename,
+					filename: filename,
+					parent: module,
+					children: [],
+					exports: {},
+					loaded: false
+				};
+				if ( typeof factories[ filename ] === "undefined" ) {
+					throw new Error( "The factory of " + filename + " module not found" );
+				}
+				// Called first time, so let's run code constructing (exporting) the module
+				imports[ filename ] = factories[ filename ]( _require, module.exports, module );
+				imports[ filename ].loaded = true;
+				if ( imports[ filename ].parent.children ) {
+					imports[ filename ].parent.children.push( imports[ filename ] );
+				}
+				return imports[ filename ].exports;
+			};
+	/**
+	 * Register module
+	 * @param {string} filename
+	 * @param {function(module, *)} moduleFactory
+	 */
+	__require.def = function( filename, moduleFactory ) {
+		factories[ filename ] = moduleFactory;
+	};
+	return __require;
+}());
+
+_require.def( "fixture/main.js", function( _require, exports, module ){
+console.log( "main.js running..." );
+console.log( "Imported name in main.js is `%s`", _require( "fixture/lib/dep1.js" ).name );
+console.log( "Getting imported object from the cache:" );
+console.log( " imported name in main.js is still `%s`", _require( "fixture/lib/dep1.js" ).name );
+	return module;
+});
+
+_require.def( "fixture/lib/dep1.js", function( _require, exports, module ){
+console.log( "dep1.js running..." );
+console.log( "Imported name in dep1.js is `%s`", _require( "fixture/lib/dep2.js" ).name );
+exports.name = "dep1";
+	module.exports = exports;
+	return module;
+});
+
+_require.def( "fixture/lib/dep2.js", function( _require, exports, module ){
+console.log( "dep2.js running..." );
+exports.name = "dep2";
+	module.exports = exports;
+	return module;
+});
+
+_require( "fixture/main.js" );

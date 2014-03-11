@@ -20,6 +20,9 @@ module.exports = function( grunt ) {
 
 					argv.push( srcFile );
 					argv.push( destFile );
+					if ( config.debug ) {
+						argv.push( "-D" );
+					}
 					if ( config.minify ) {
 						argv.push( "-M" );
 					}
