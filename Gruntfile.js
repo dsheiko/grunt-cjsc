@@ -24,6 +24,8 @@ module.exports = function( grunt ) {
     cjsc: {
       development: {
 				options: {
+					sourceMap: "fixture/src-map.js",
+					sourceMapUrl: "http://localhost/",
 					minify: false,
 					banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - " +
 						"<%= grunt.template.today(\"yyyy-mm-dd\") %> */"

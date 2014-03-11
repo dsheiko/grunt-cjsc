@@ -20,8 +20,12 @@ module.exports = function( grunt ) {
 
 					argv.push( srcFile );
 					argv.push( destFile );
-					if ( config.debug ) {
-						argv.push( "-D" );
+
+					if ( config.sourceMap ) {
+						argv.push( "--source-map=" + config.sourceMap );
+					}
+					if ( config.sourceMapUrl ) {
+						argv.push( "--source-map-url=" + config.sourceMapUrl );
 					}
 					if ( config.minify ) {
 						argv.push( "-M" );
