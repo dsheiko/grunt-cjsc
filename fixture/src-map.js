@@ -1,0 +1,1 @@
+{"version":3,"file":"./fixture/dest.js","sources":["fixture/main.js","fixture/lib/dep1.js","fixture/lib/dep2.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;ACPA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;ACPA;AACA;AACA;AACA;AACA;AACA;AACA"}
