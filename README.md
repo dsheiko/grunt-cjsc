@@ -52,18 +52,19 @@ grunt.initConfig({
 });
 ```
 
-#### Compile src1.js to dest1.js keeping debug info
+#### Compile src1.js to dest1.js and generate source map
 ```js
 grunt.initConfig({
   cjsc: {
 		options: {
-			debug: true
+			sourceMap: "fixture/*.map",
+			sourceMapUrl: "http://localhost/",
 		},
     development: {
-        files: {
-          "./fixture/dest1.js" : "./fixture/src1.js"
-        }
-      }
+			files: {
+				"./fixture/dest1.js" : "./fixture/src1.js"
+			}
+		}
   }
 });
 ```
