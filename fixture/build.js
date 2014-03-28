@@ -1,4 +1,4 @@
-/*! grunt-contrib-cjsc - v0.0.6 - 2014-03-11 *//* jshint unused: false */
+/*! grunt-contrib-cjsc - v0.1.0 - 2014-03-28 *//* jshint unused: false */
 /**
  * @typedef module
  * @type {object}
@@ -67,7 +67,10 @@ var _require = (function(){
 	};
 	return __require;
 }());
-
+// Must run for UMD, but under CommonJS do not conflict with global require
+if ( typeof require === "undefined" ) {
+	require = _require;
+}
 _require.def( "fixture/main.js", function( _require, exports, module ){
 console.log( "main.js running..." );
 console.log( "Imported name in main.js is `%s`", _require( "fixture/lib/dep1.js" ).name );
@@ -93,4 +96,4 @@ exports.name = "dep2";
 
 _require( "fixture/main.js" );
 
-//# sourceMappingURL=http://localhost/fixture/src-map.js
+//# sourceMappingURL=http://localhost/build.js.map

@@ -27,6 +27,19 @@ In your project's Gruntfile, add a section named `cjsc` to the data object passe
 grunt.initConfig({
   cjsc: {
     your_target: {
+			options: {
+				sourceMap: "<string>",
+				sourceMapUrl: "<string>",
+				minify: false,
+				banner: "/*! <string> %> */",
+				config: {
+					"<dependency-name>": {
+						"path": "<dependency-path>",
+						"require": "<dependency-name>",
+						"exports": "<object>"
+					}
+				}
+			},
       files: {
         "destination file" : "source file",
         "destination file" : "source file"
@@ -39,30 +52,30 @@ grunt.initConfig({
 
 ### Usage Examples
 
-#### Compile src1.js to dest1.js
+#### Compile main.js to build.js
 ```js
 grunt.initConfig({
   cjsc: {
     development: {
         files: {
-          "./fixture/dest1.js" : "./fixture/src1.js"
+          "./fixture/build.js" : "./fixture/main.js"
         }
       }
   }
 });
 ```
 
-#### Compile src1.js to dest1.js and generate source map
+#### Compile main.js to build.js and generate source map
 ```js
 grunt.initConfig({
   cjsc: {
-		options: {
-			sourceMap: "fixture/*.map",
-			sourceMapUrl: "http://localhost/",
-		},
     development: {
+			options: {
+				sourceMap: "fixture/*.map",
+				sourceMapUrl: "http://localhost/",
+			},
 			files: {
-				"./fixture/dest1.js" : "./fixture/src1.js"
+				"./fixture/build.js" : "./fixture/main.js"
 			}
 		}
   }
@@ -81,7 +94,32 @@ grunt.initConfig({
 		},
     development: {
 			files: {
-				"./fixture/dest1.js" : "./fixture/src1.js"
+				"./fixture/build.js" : "./fixture/main.js"
+			}
+		}
+  }
+});
+```
+
+#### Compile main.js to build.js by using dependency configuration
+```js
+grunt.initConfig({
+  cjsc: {
+		options: {
+			config: {
+				"jQuery": {
+					"path": "./jquery-stub.js"
+				},
+				"plugin": {
+					"path": "./jquery-plugin-stub.js",
+					"require": "jQuery",
+					"exports": "jQuery"
+				}
+			}
+		},
+    development: {
+			files: {
+				"./fixture/build.js" : "./fixture/main.js"
 			}
 		}
   }

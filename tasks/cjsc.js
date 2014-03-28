@@ -27,6 +27,7 @@ module.exports = function( grunt ) {
 					if ( config.sourceMapUrl ) {
 						argv.push( "--source-map-url=" + config.sourceMapUrl );
 					}
+
 					if ( config.minify ) {
 						argv.push( "-M" );
 					}
@@ -36,7 +37,7 @@ module.exports = function( grunt ) {
 					grunt.log.writeln('File ' + destFile.cyan + ' created.');
 					grunt.verbose.writeln( 'Exec: ' + cmd );
 
-					cjsc( argv );
+					cjsc( argv, config.config || {} );
 			};
 
 

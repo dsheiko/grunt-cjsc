@@ -22,16 +22,33 @@ module.exports = function( grunt ) {
 		pkg: grunt.file.readJSON( "package.json" ),
     // Configuration to be run (and then tested).
     cjsc: {
-      development: {
+      main: {
 				options: {
-					sourceMap: "fixture/src-map.js",
+					sourceMap: "fixture/*.map",
 					sourceMapUrl: "http://localhost/",
 					minify: false,
 					banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - " +
 						"<%= grunt.template.today(\"yyyy-mm-dd\") %> */"
 				},
         files: {
-          "./fixture/dest.js" : "./fixture/main.js"
+          "./fixture/build.js" : "./fixture/main.js"
+        }
+      },
+			config: {
+				options: {
+					config: {
+						"jQuery": {
+							"path": "./jquery-stub.js"
+						},
+						"plugin": {
+							"path": "./jquery-plugin-stub.js",
+							"require": "jQuery",
+							"exports": "jQuery"
+						}
+					}
+				},
+        files: {
+          "./fixture/config-build.js" : "./fixture/config/main.js"
         }
       }
     }
@@ -45,7 +62,7 @@ module.exports = function( grunt ) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['cjsc']);
+  grunt.registerTask('test', [ 'cjsc:main', 'cjsc:config' ]);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
