@@ -27,6 +27,9 @@ module.exports = function( grunt ) {
 					if ( config.sourceMapUrl ) {
 						argv.push( "--source-map-url=" + config.sourceMapUrl );
 					}
+					if ( config.sourceMapRoot ) {
+						argv.push( "--source-map-root=" + config.sourceMapRoot );
+					}
 
 					if ( config.minify ) {
 						argv.push( "-M" );
