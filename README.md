@@ -3,6 +3,20 @@
 
 > A grunt task for running CommonJS modules compiler (https://github.com/dsheiko/cjsc)
 
+
+CJSC is a command-line tool that makes your Common JS modules suitable for in-browser use.
+
+Modular programming separates the functionality of a program into independent modules, so that each module
+encapsulates everything required to implement a single aspect of the desired functionality. That makes the entire
+system easier to debug, update and modify. Prior to Ecma-262 Edition 6, which is still a working draft,
+JavaScript had no build-in facilities to define a module. Nonetheless the module pattern can be
+achieved in JavaScript by leveraging closure scopes. There are also standardized
+approaches: CommonJS Modules/1.1 and AMD (Asynchronous module definition).
+The fist one was initially designed for server-side (desktop app) JavaScript while the second is widely used in
+browser-oriented web applications. CommonJS Compiler tool converts CommonJS modules into a single JavaScript file that run natively in browser.
+
+See also the slides http://www.slideshare.net/dsheiko/modular-javascript-with-commonjs-compiler
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
