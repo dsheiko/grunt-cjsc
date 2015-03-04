@@ -1,4 +1,4 @@
-/*! grunt-contrib-cjsc - v0.1.0 - 2014-03-28 *//* jshint unused: false */
+/*! grunt-cjsc - v0.1.0 - 2014-03-28 *//* jshint unused: false */
 /**
  * @typedef module
  * @type {object}
