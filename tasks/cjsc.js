@@ -15,32 +15,43 @@ module.exports = function( grunt ) {
 
     var compileJsic = function( srcFile, destFile, config ) {
 					var cjsc = require( "cjsc" ),
-							argv = [ "node", "cjsc" ],
-							cmd = 'node cjsc ' + srcFile + ' ' + destFile;
+              args = {
+                targets: [ srcFile, destFile ],
+                options: {
+                },
+                plugins: []
+              };
 
-					argv.push( srcFile );
-					argv.push( destFile );
 
 					if ( config.sourceMap ) {
-						argv.push( "--source-map=" + config.sourceMap );
+            args.options[ "source-map" ] = config.sourceMap;
 					}
 					if ( config.sourceMapUrl ) {
-						argv.push( "--source-map-url=" + config.sourceMapUrl );
+            args.options[ "source-map-url" ] = config.sourceMapUrl;
 					}
 					if ( config.sourceMapRoot ) {
-						argv.push( "--source-map-root=" + config.sourceMapRoot );
+            args.options[ "source-map-root" ] = config.sourceMapRoot;
 					}
 
 					if ( config.minify ) {
-						argv.push( "-M" );
+            args.options.minify = config.minify;
 					}
 					if ( config.banner ) {
-						argv.push( "--banner=" + config.banner );
+            args.options.banner = config.banner;
 					}
-					grunt.log.writeln('File ' + destFile.cyan + ' created.');
-					grunt.verbose.writeln( 'Exec: ' + cmd );
 
-					cjsc( argv, config.config || {} );
+          if ( config.plugins ) {
+            args.plugins = config.plugins;
+					}
+
+          if ( config.debug ) {
+            args.options.debug = config.debug;
+					}
+
+					grunt.log.writeln('File ' + destFile.cyan + ' created.');
+					grunt.verbose.writeln( 'Exec: cjsc ' + srcFile + ' -o ' + destFile );
+
+					cjsc( args, config.config || {} );
 			};
 
 
