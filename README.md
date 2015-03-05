@@ -46,6 +46,15 @@ grunt.initConfig({
 				sourceMapUrl: "<string>",
 				minify: false,
 				banner: "/*! <string> %> */",
+        plugins: [
+          plugin: "browserify-replace"
+          targets: {
+            replace: [{
+              from: "0.0.1",
+              to: "*.*.*"
+            }]
+          }
+        ],
 				config: {
 					"<dependency-name>": {
 						"path": "<dependency-path>",
