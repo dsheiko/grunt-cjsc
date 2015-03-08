@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "async": "^0.9.0",
+    "cli-color": "^0.3.2",
     "cjsc": ">= 1.0.0"
   },
   "devDependencies": {
@@ -40,6 +41,14 @@
     "grunt": "~0.4.1"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "cjsc",
+    "browser",
+    "require",
+    "commonjs",
+    "commonj-esque",
+    "bundle",
+    "npm",
+    "javascript"
   ]
 }
