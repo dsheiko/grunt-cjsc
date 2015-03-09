@@ -4,66 +4,102 @@
  *
  * Copyright (c) 2013 Dmitry Sheiko
  * Licensed under the MIT license.
- * @jscs standard:Jquery
+ * jscs standard:Jquery
  */
 
-'use strict';
 
-var exec = require( "child_process" ).exec;
+    /** @type {module:cli-color} */
+var async = require( "async" ),
+    /** @type {module:cli-color} */
+    clc = require( "cli-color" );
 
+"use strict";
+
+/**
+ * @callback cjscDone
+ * @param {String} code - compiled code
+ * @returns {void}
+ */
+/**
+ *
+ * @param {Object} grunt
+ * @returns {void}
+ */
 module.exports = function( grunt ) {
+    /**
+     *
+     * @param {String} srcFile
+     * @param {String} destFile
+     * @param {Object} config
+     * @param {cjscDone} done
+     * @returns {void}
+     */
+    var compileFile = function( srcFile, destFile, config, done ) {
+          /** @type {module:cjsc} */
+          var cjsc = require( "cjsc" ),
+              /** @type {Object} */
+              args = {
+                targets: [ srcFile, destFile ],
+                options: {},
+                plugins: []
+              },
+              /** @type {Object} */
+              map = {
+                sourceMap: "source-map",
+                sourceMapUrl: "source-map-url",
+                sourceMapRoot: "source-map-root"
+              },
+               /** @type {String} */
+              key;
 
-    var compileJsic = function( srcFile, destFile, config ) {
-					var cjsc = require( "cjsc" ),
-							argv = [ "node", "cjsc" ],
-							cmd = 'node cjsc ' + srcFile + ' ' + destFile;
+          for ( key in config ) {
+            if ( config.hasOwnProperty( key ) && key !== "config" ) {
+              args.options[ map[ key ] || key ] = config[ key ];
+            }
+          }
 
-					argv.push( srcFile );
-					argv.push( destFile );
+          grunt.log.writeln( "File " + destFile.cyan + " created." );
+          grunt.verbose.writeln( "Exec: cjsc " + srcFile + " -o " + destFile );
 
-					if ( config.sourceMap ) {
-						argv.push( "--source-map=" + config.sourceMap );
-					}
-					if ( config.sourceMapUrl ) {
-						argv.push( "--source-map-url=" + config.sourceMapUrl );
-					}
-					if ( config.sourceMapRoot ) {
-						argv.push( "--source-map-root=" + config.sourceMapRoot );
-					}
+          try {
+            cjsc( args, config.config || {}, done );
+           } catch ( err ) {
+             console.log( clc.red( " " + err.message || err  ) );
+           }
 
-					if ( config.minify ) {
-						argv.push( "-M" );
-					}
-					if ( config.banner ) {
-						argv.push( "--banner=" + config.banner );
-					}
-					grunt.log.writeln('File ' + destFile.cyan + ' created.');
-					grunt.verbose.writeln( 'Exec: ' + cmd );
-
-					cjsc( argv, config.config || {} );
-			};
+      };
 
 
-    grunt.registerMultiTask( 'cjsc', 'Run cjsc', function() {
-			var defaults = {
-						minify: false
-					},
-					config = this.options( defaults ) ;
+    grunt.registerMultiTask( "cjsc", "Run cjsc", function() {
+      /** @type {Object} */
+      var defaults = {
+            minify: false
+          },
+          /** @type {Object} */
+          config = this.options( defaults ),
+          /** @type {cjscDone} done */
+          allDone = this.async();
 
       if ( this.files.length < 1 ) {
-        grunt.verbose.warn('Destination not written because no source files were provided.');
+        grunt.verbose.warn( "Destination not written because no source files were provided." );
       }
 
-			this.files.forEach(function( f ) {
-					var destFile = f.dest,
-							srcFile = Array.isArray( f ) ? f.src.shift() : f.orig.src.shift();
+      async.each( this.files, function( f, done ) {
+              /** @type {String} */
+          var destFile = f.dest,
+              /** @type {String} */
+              srcFile = Array.isArray( f ) ? f.src.shift() : f.orig.src.shift();
 
-					if ( !grunt.file.exists( srcFile ) ) {
-						grunt.log.warn( 'Source file "' + srcFile + '" not found.' );
-						return false;
-					}
-					compileJsic( srcFile, destFile, config );
-			});
-
+          if ( !grunt.file.exists( srcFile ) ) {
+            grunt.log.warn( "Source file \"" + srcFile + "\" not found." );
+            return false;
+          }
+          compileFile( srcFile, destFile, config, done );
+      }, function( err ){
+        if ( err ) {
+          return;
+        }
+        allDone( true );
+      });
     });
 };

@@ -17,6 +17,8 @@ browser-oriented web applications. CommonJS Compiler tool converts CommonJS modu
 
 See also the slides http://www.slideshare.net/dsheiko/modular-javascript-with-commonjs-compiler
 
+Note: This used to be called 'grunt-contrib-cjsc' in the npm registry, but as of version 1.0.0 it has taken over the 'grunt-cjsc' name.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
@@ -46,6 +48,21 @@ grunt.initConfig({
 				sourceMapUrl: "<string>",
 				minify: false,
 				banner: "/*! <string> %> */",
+        transform: [{
+          target: "browserify-replace",
+          options: {
+            replace: [
+              {
+              from: "0.0.1",
+              to: "*.*.*"
+              },
+              {
+              from: "0.0.2",
+              to: "*.*.**"
+              }
+            ]
+          }
+        }],
 				config: {
 					"<dependency-name>": {
 						"path": "<dependency-path>",
@@ -145,4 +162,4 @@ grunt.initConfig({
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/2740ed5c70bf24be96d91b5987f9350b "githalytics.com")](http://githalytics.com/dsheiko/grunt-cjsc)
+[![Analytics](https://ga-beacon.appspot.com/UA-1150677-13/dsheiko/grunt-cjsc)](http://githalytics.com/dsheiko/grunt-cjsc)
