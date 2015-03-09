@@ -99,7 +99,7 @@ module.exports = function( grunt ) {
         if ( err ) {
           return;
         }
-        allDone();
+        allDone( true );
       });
     });
 };
