@@ -95,10 +95,7 @@ module.exports = function( grunt ) {
             return false;
           }
           compileFile( srcFile, destFile, config, done );
-      }, function( err ){
-        if ( err ) {
-          return;
-        }
+      }, function(){
         allDone( true );
       });
     });
