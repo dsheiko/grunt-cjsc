@@ -50,7 +50,8 @@ var _require = (function(){
 					throw new Error( "The factory of " + filename + " module not found" );
 				}
 				// Called first time, so let's run code constructing (exporting) the module
-				imports[ filename ] = factories[ filename ]( _require, module.exports, module );
+				imports[ filename ] = factories[ filename ]( _require, module.exports, module,
+          typeof window !== "undefined" ? window : global );
 				imports[ filename ].loaded = true;
 				if ( imports[ filename ].parent.children ) {
 					imports[ filename ].parent.children.push( imports[ filename ] );
@@ -71,32 +72,38 @@ var _require = (function(){
 if ( typeof require === "undefined" ) {
 	require = _require;
 }
-_require.def( "fixture/config/main.js", function( _require, exports, module ){
+_require.def( "fixture/config/main.js", function( _require, exports, module, global ){
 var $ = _require( "fixture/config/jquery-stub.js" );
 _require( "fixture/config/jquery-plugin-stub.js" );
 window.log.push( $.name );
 window.log.push( $.fn );
 
-	return module;
+
+  return module;
 });
 
-_require.def( "fixture/config/jquery-stub.js", function( _require, exports, module ){
+_require.def( "fixture/config/jquery-stub.js", function( _require, exports, module, global ){
 module.exports = { 
  name: "jQuery"
 };
-	return module;
+
+
+  return module;
 });
 
-_require.def( "fixture/config/jquery-plugin-stub.js", function( _require, exports, module ){
+_require.def( "fixture/config/jquery-plugin-stub.js", function( _require, exports, module, global ){
 
  var 
-	/** @type {module:jQuery} */
-	jQuery = _require( "fixture/config/jquery-stub.js" );
+  /** @type {module:jQuery} */
+  jQuery = _require( "fixture/config/jquery-stub.js" );
 (function( $ ){
 $.fn = "plugin";
 }( jQuery ));
-	module.exports = jQuery;
-	return module;
+
+  module.exports.jQuery = jQuery;
+  return module;
 });
 
+(function(){
 _require( "fixture/config/main.js" );
+}());

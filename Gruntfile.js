@@ -38,10 +38,10 @@ module.exports = function( grunt ) {
 				options: {
 					config: {
 						"jQuery": {
-							"path": "./jquery-stub.js"
+							"path": "./fixture/config/jquery-stub.js"
 						},
 						"plugin": {
-							"path": "./jquery-plugin-stub.js",
+							"path": "./fixture/config/jquery-plugin-stub.js",
 							"require": "jQuery",
 							"exports": "jQuery"
 						}

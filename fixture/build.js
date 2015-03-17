@@ -1,4 +1,4 @@
-/*! grunt-cjsc - v0.1.0 - 2014-03-28 *//* jshint unused: false */
+/*! grunt-cjsc - v1.0.2 - 2015-03-17 *//* jshint unused: false */
 /**
  * @typedef module
  * @type {object}
@@ -50,7 +50,8 @@ var _require = (function(){
 					throw new Error( "The factory of " + filename + " module not found" );
 				}
 				// Called first time, so let's run code constructing (exporting) the module
-				imports[ filename ] = factories[ filename ]( _require, module.exports, module );
+				imports[ filename ] = factories[ filename ]( _require, module.exports, module,
+          typeof window !== "undefined" ? window : global );
 				imports[ filename ].loaded = true;
 				if ( imports[ filename ].parent.children ) {
 					imports[ filename ].parent.children.push( imports[ filename ] );
@@ -71,29 +72,36 @@ var _require = (function(){
 if ( typeof require === "undefined" ) {
 	require = _require;
 }
-_require.def( "fixture/main.js", function( _require, exports, module ){
+_require.def( "fixture/main.js", function( _require, exports, module, global ){
 console.log( "main.js running..." );
 console.log( "Imported name in main.js is `%s`", _require( "fixture/lib/dep1.js" ).name );
 console.log( "Getting imported object from the cache:" );
 console.log( " imported name in main.js is still `%s`", _require( "fixture/lib/dep1.js" ).name );
-	return module;
+
+  return module;
 });
 
-_require.def( "fixture/lib/dep1.js", function( _require, exports, module ){
+_require.def( "fixture/lib/dep1.js", function( _require, exports, module, global ){
 console.log( "dep1.js running..." );
 console.log( "Imported name in dep1.js is `%s`", _require( "fixture/lib/dep2.js" ).name );
 exports.name = "dep1";
-	module.exports = exports;
-	return module;
+  module.exports = exports;
+
+
+  return module;
 });
 
-_require.def( "fixture/lib/dep2.js", function( _require, exports, module ){
+_require.def( "fixture/lib/dep2.js", function( _require, exports, module, global ){
 console.log( "dep2.js running..." );
 exports.name = "dep2";
-	module.exports = exports;
-	return module;
+  module.exports = exports;
+
+
+  return module;
 });
 
+(function(){
 _require( "fixture/main.js" );
+}());
 
 //# sourceMappingURL=http://localhost/build.js.map
