@@ -58,7 +58,6 @@ module.exports = function( grunt ) {
             }
           }
 
-          grunt.log.writeln( "File " + destFile.cyan + " created." );
           grunt.verbose.writeln( "Exec: cjsc " + srcFile + " -o " + destFile );
 
           try {
@@ -67,6 +66,52 @@ module.exports = function( grunt ) {
              console.log( clc.red( " " + err.message || err  ) );
            }
 
+      },
+      /**
+       * Run cjsc by a given file config entity
+       * @param {Object} fConfig
+       * @param {Object} config
+       * @param {Fucntion} done
+       * @returns {Boolean}
+       */
+      run = function( fConfig, config, done ) {
+              /** @type {String} */
+          var destFile = fConfig.dest,
+              /** @type {String} */
+              srcFile = Array.isArray( fConfig ) ? fConfig.src.shift() : fConfig.orig.src.shift();
+
+          if ( !grunt.file.exists( srcFile ) ) {
+            grunt.log.warn( "\n Source file " + srcFile.cyan + " not found." );
+            return;
+          }
+          grunt.log.writeln( "\n Compiling " + srcFile.cyan + "..." );
+          compileFile( srcFile, destFile, config, function(){
+            grunt.log.writeln( " File " + destFile.cyan + " created" );
+            done();
+          });
+      },
+      /**
+       *
+       * @param {Array} files
+       * @param {Object} config
+       * @param {Function} allDone
+       */
+      Iterator = function ( files, config, allDone ) {
+        return {
+          runNext: function() {
+                /** @type {Object} */
+            var that = this,
+                /** @type {Object} */
+                fileCfg = files.shift();
+
+            if ( !fileCfg ) {
+              return allDone();
+            }
+            run( fileCfg, config, function(){
+              that.runNext();
+            });
+          }
+        };
       };
 
 
@@ -75,28 +120,18 @@ module.exports = function( grunt ) {
       var defaults = {
             minify: false
           },
-          /** @type {Object} */
-          config = this.options( defaults ),
           /** @type {cjscDone} done */
-          allDone = this.async();
+          allDone = this.async(),
+          /** @type {Object} */
+          it = new Iterator( this.files, this.options( defaults ), function(){
+            allDone( true );
+          });
 
       if ( this.files.length < 1 ) {
         grunt.verbose.warn( "Destination not written because no source files were provided." );
       }
 
-      async.each( this.files, function( f, done ) {
-              /** @type {String} */
-          var destFile = f.dest,
-              /** @type {String} */
-              srcFile = Array.isArray( f ) ? f.src.shift() : f.orig.src.shift();
+      it.runNext();
 
-          if ( !grunt.file.exists( srcFile ) ) {
-            grunt.log.warn( "Source file \"" + srcFile + "\" not found." );
-            return false;
-          }
-          compileFile( srcFile, destFile, config, done );
-      }, function(){
-        allDone( true );
-      });
     });
 };
