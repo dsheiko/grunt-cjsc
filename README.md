@@ -1,5 +1,6 @@
 # grunt-cjsc
-[![NPM version](https://badge.fury.io/js/grunt-cjsc.png)](http://badge.fury.io/js/grunt-cjsc)
+
+[![NPM](https://nodei.co/npm/grunt-cjsc.png)](https://nodei.co/npm/grunt-cjsc/)
 
 > A grunt task for running CommonJS modules compiler (https://github.com/dsheiko/cjsc)
 
