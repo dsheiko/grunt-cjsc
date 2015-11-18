@@ -50,18 +50,9 @@ grunt.initConfig({
 				minify: false,
 				banner: "/*! <string> %> */",
         transform: [{
-          target: "browserify-replace",
+          target: "babelify",
           options: {
-            replace: [
-              {
-              from: "0.0.1",
-              to: "*.*.*"
-              },
-              {
-              from: "0.0.2",
-              to: "*.*.**"
-              }
-            ]
+            presets: [ "es2015" ]
           }
         }],
 				config: {
