@@ -1,1 +1,1 @@
-{"version":3,"sources":["fixture/main.js","fixture/lib/dep1.js","fixture/lib/dep2.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA;;;;;;ACHA;AACA;AACA;;;;;;;;ACFA;AACA","file":"./fixture/build.js"}
+{"version":3,"sources":["fixture/main.js","fixture/lib/dep1.js","fixture/lib/dep2.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA;;;;;;ACHA;AACA;AACA;;;;;;;;ACFA;AACA","file":"./fixture/build.js"}

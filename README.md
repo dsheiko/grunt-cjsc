@@ -49,12 +49,12 @@ grunt.initConfig({
 				sourceMapUrl: "<string>",
 				minify: false,
 				banner: "/*! <string> %> */",
-        transform: [{
-          target: "babelify",
-          options: {
-            presets: [ "es2015" ]
-          }
-        }],
+                transform: [{
+                  target: "babelify",
+                  options: {
+                    presets: [ "es2015" ]
+                  }
+                }],
 				config: {
 					"<dependency-name>": {
 						"path": "<dependency-path>",

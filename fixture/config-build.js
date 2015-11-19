@@ -1,3 +1,4 @@
+(function(){
 /* jshint unused: false */
 /**
  * @typedef module
@@ -106,4 +107,5 @@ $.fn = "plugin";
 
 (function(){
 _require( "fixture/config/main.js" );
+}());
 }());

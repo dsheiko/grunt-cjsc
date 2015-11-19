@@ -1,4 +1,5 @@
-/*! grunt-cjsc - v1.0.2 - 2015-03-17 *//* jshint unused: false */
+/*! grunt-cjsc - v1.0.3 - 2015-11-19 */(function(){
+/* jshint unused: false */
 /**
  * @typedef module
  * @type {object}
@@ -103,5 +104,5 @@ exports.name = "dep2";
 (function(){
 _require( "fixture/main.js" );
 }());
-
+}());
 //# sourceMappingURL=http://localhost/build.js.map
