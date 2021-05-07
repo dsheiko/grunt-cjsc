@@ -1,5 +1,9 @@
 # grunt-cjsc
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+> WARNING - THIS PROJECT IS NO LONGER MAINTAINED!!!
+
 [![NPM](https://nodei.co/npm/grunt-cjsc.png)](https://nodei.co/npm/grunt-cjsc/)
 
 > A grunt task for running CommonJS modules compiler (https://github.com/dsheiko/cjsc)
